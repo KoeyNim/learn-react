@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+
+    // "target": "es5", // 사용할 특정 ECMAScript 버전 설정
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "baseUrl": "./src", // non-absolute한 모듈 이름을 처리할 기준 디렉토리
+    "allowJs": true, // js 파일들 ts에서 import해서 쓸수 있는지 체크
+    "skipLibCheck": true, // 모든 선언 파일(*.d.ts)의 타입 검사를 건너뜁니다.
+    "esModuleInterop": true, // 모듈 방식 호환성 
+    "strict": true, // 모든 엄격한 타입-체킹 옵션 활성화 여부
+    "forceConsistentCasingInFileNames": true, // 파일 이름의 일관된 대소문자 지정
+    "noFallthroughCasesInSwitch": true, //switch문 이상하면 에러내기 
+    "module": "esnext", // 모듈 방식 설정 (import 문법)
+    "moduleResolution": "node", // 모듈 해석 방법
+    "resolveJsonModule": true, // json 확장자로 import된 모듈을 포함
+    "isolatedModules": true, // 각 파일을 분리된 모듈로 트랜스파일 ('ts.transpileModule'과 비슷).
+    "noEmit": true, // 결과 파일 내보낼지 여부
+    "jsx": "react-jsx", // JSX 코드 생성 설정: 'preserve', 'react-native', 혹은 'react'.
+
+    "strictNullChecks": true, //null, undefined 타입에 이상한 짓 할시 에러내기 
+
+  },
+  "include": ["src"]
+}
