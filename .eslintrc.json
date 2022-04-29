@@ -1,0 +1,15 @@
+// .eslintrc.json
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "eslint-plugin-prettier",
+    "@typescript-eslint",
+    "eslint-plugin-react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ]
+}

@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import {TopToolbar} from 'react-admin';
+import {Button} from '@mui/material';
+import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {IconButton} from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TopToolbar />
+      <header className="App-header"></header>
+      <Button variant="contained" color="secondary" size="small">
+        Hello world
+      </Button>
+      <Button variant="contained">Hello world2</Button>
+      <Button variant="outlined" color="primary" size="large">
+        Hello world3
+      </Button>
+      <>
+        <Button variant="contained" color="primary" startIcon={<SaveIcon />}>
+          Save
+        </Button>
+        <Button variant="contained" color="secondary" endIcon={<DeleteIcon />}>
+          Delete
+        </Button>
+        <IconButton aria-label="star">
+          <StarIcon />
+        </IconButton>
+        <IconButton color="secondary" aria-label="favorite">
+          <FavoriteIcon />
+        </IconButton>
+      </>
     </div>
   );
 }
