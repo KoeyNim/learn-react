@@ -1,57 +1,43 @@
-import React from 'react';
-import Greetings from 'clone-coding/Greetings';
-import {TopToolbar} from 'react-admin';
-import {Button} from '@mui/material';
-import SaveIcon from '@material-ui/icons/Save';
-import DeleteIcon from '@material-ui/icons/Delete';
-import {IconButton} from '@material-ui/core';
-import StarIcon from '@material-ui/icons/Star';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Counter from 'clone-coding/Counter';
-import MyForm from 'clone-coding/MyForm';
-import CounterReducer from 'clone-coding/CounterReducer';
-import ReducerSample from 'clone-coding/ReducerSample';
-import {SampleProvider} from 'clone-coding/SampleContext';
+import * as React from 'react';
+import {Admin, Resource, ListGuesser, EditGuesser} from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+import UserList from './react-admin-tutorial-clone/users';
+import {
+  PostList,
+  PostEdit,
+  PostCreate,
+} from './react-admin-tutorial-clone/posts';
+import Dashboard from './react-admin-tutorial-clone/Dashboard';
+import authProvider from 'react-admin-tutorial-clone/authProvider';
+import dataProvider from 'react-admin-tutorial-clone/dataProvider';
+import PostIcon from '@mui/icons-material/Book';
+import UserIcon from '@mui/icons-material/Group';
 
+// 분리되어 있는 컴포넌트를 모아 배치
 function App() {
-  const onClick = (name: string) => {
-    console.log(`${name} says Hello`);
-  };
-  const onSubmit = (form: {name: string; description: string}) => {
-    console.log(form);
-  };
+  // data db 경로
+  const dataProvider = jsonServerProvider(
+    'https://jsonplaceholder.typicode.com',
+  );
   return (
     <div className="App">
-      <TopToolbar />
-      <header className="App-header"></header>
-      <Button variant="contained" color="secondary" size="small">
-        Hello world
-      </Button>
-      <Button variant="contained">Hello world2</Button>
-      <Button variant="outlined" color="primary" size="large">
-        Hello world3
-      </Button>
-      <>
-        <Button variant="contained" color="primary" startIcon={<SaveIcon />}>
-          Save
-        </Button>
-        <Button variant="contained" color="secondary" endIcon={<DeleteIcon />}>
-          Delete
-        </Button>
-        <IconButton aria-label="star">
-          <StarIcon />
-        </IconButton>
-        <IconButton color="secondary" aria-label="favorite">
-          <FavoriteIcon />
-        </IconButton>
-        <Greetings name="react" optional="option" onClick={onClick} />
-        <Counter />
-        <CounterReducer />
-        <SampleProvider>
-          <ReducerSample />
-        </SampleProvider>
-        <MyForm onSubmit={onSubmit} />
-      </>
+      {/* 대시보드, 사용자인증, 데이터 제어 */}
+      <Admin
+        dashboard={Dashboard}
+        authProvider={authProvider}
+        dataProvider={dataProvider}
+      >
+        {/* Posts의 list, edit, create, icon 추가 */}
+        <Resource
+          name="posts"
+          list={PostList}
+          edit={PostEdit}
+          create={PostCreate}
+          icon={PostIcon}
+        />
+        {/*  Users의 list, icon 추가  */}
+        <Resource name="users" list={UserList} icon={UserIcon} />
+      </Admin>
     </div>
   );
 }
