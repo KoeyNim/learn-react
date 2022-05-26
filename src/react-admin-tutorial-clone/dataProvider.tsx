@@ -12,11 +12,17 @@ import {
   DELETE,
   GET_MANY,
   GET_MANY_REFERENCE,
+  DELETE_MANY,
 } from 'react-admin';
 
-const dataProviders = [
+interface MappingType {
+  // 인덱스 시그니처
+  [prop: string]: any;
+}
+
+const dataProviders: Array<any> = [
   {
-    dataProvider: boardProvider,
+    dataProvider: boardProvider(true),
     resources: ['posts'],
   },
   {
@@ -25,12 +31,12 @@ const dataProviders = [
   },
 ];
 
-export default (type: string, resource: any, params: any) => {
-  const dataProviderMapping = dataProviders.find((dp) =>
+export default (type: any, resource: unknown, params: unknown) => {
+  const dataProviderMapping = dataProviders.find((dp: any) =>
     dp.resources.includes(resource),
   );
 
-  const mappingType = {
+  const mappingType: MappingType = {
     [GET_LIST]: 'getList',
     [GET_ONE]: 'getOne',
     [GET_MANY]: 'getMany',
@@ -39,7 +45,8 @@ export default (type: string, resource: any, params: any) => {
     [UPDATE]: 'update',
     [UPDATE_MANY]: 'updateMany',
     [DELETE]: 'delete',
+    [DELETE_MANY]: 'deleteMany',
   };
 
-  return dataProviderMapping?.dataProvider['getList'](resource, params);
+  return dataProviderMapping?.dataProvider[mappingType[type]](resource, params);
 };
