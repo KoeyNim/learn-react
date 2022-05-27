@@ -33,6 +33,7 @@ export default (loggingEnabled = false): DataProvider => {
    */
   const convertDataRequestToHTTP = (type: any, resource: any, params: any) => {
     let url = '';
+    const idStr = '';
     const options: Options = {};
     switch (type) {
       case 'getList': {
@@ -58,9 +59,8 @@ export default (loggingEnabled = false): DataProvider => {
         const query = {
           filter: JSON.stringify({id: params.ids}),
         };
-        const idStr = '';
         const queryString = params.ids.map((id: any) => idStr + `id=${id}`);
-        url = `${apiUrl}/${resource}?${idStr}}`;
+        url = `${apiUrl}/${resource}?${queryString}`;
         options.method = 'GET';
         break;
       }
@@ -70,18 +70,28 @@ export default (loggingEnabled = false): DataProvider => {
       //   break;
       // }
       case 'update':
-        url = `${apiUrl}/${resource}/${params.id}`;
+        url = `${apiUrl}/${resource}/update/${params.id}`;
+        options.method = 'PUT';
+        options.body = JSON.stringify(params.data);
+        break;
+      case 'updateMany':
+        url = `${apiUrl}/${resource}/updatemany`;
         options.method = 'PUT';
         options.body = JSON.stringify(params.data);
         break;
       case 'create':
-        url = `${apiUrl}/${resource}`;
+        url = `${apiUrl}/${resource}/create`;
         options.method = 'POST';
         options.body = JSON.stringify(params.data);
         break;
       case 'delete':
-        url = `${apiUrl}/${resource}/${params.id}`;
+        url = `${apiUrl}/${resource}/delete/${params.id}`;
         options.method = 'DELETE';
+        break;
+      case 'deleteMany':
+        url = `${apiUrl}/${resource}/deletemany`;
+        options.method = 'DELETE';
+        options.body = JSON.stringify(params.ids);
         break;
       default:
         throw new Error(`Unsupported fetch action type ${type}`);
@@ -113,52 +123,24 @@ export default (loggingEnabled = false): DataProvider => {
         }
         return {
           data: json.content,
-          total: parseInt(json.totalElements, 10),
+          total: json.totalElements,
+          pageInfo: json.pageable,
         };
       case 'create':
         return {data: {...params.data, id: json.id}};
+      case 'updateMany':
+      case 'deleteMany':
+        return {data: json};
       default:
         return {data: json};
     }
   };
-
   /**
    * @param {string} type Request type, e.g GET_LIST
    * @param {string} resource Resource name, e.g. "posts"
    * @param {Object} payload Request parameters. Depends on the request type
    * @returns {Promise} the Promise for a data response
    */
-  // return (type: any, resource: any, params: any) => {
-  //   // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
-  //   if (type === 'updateMany') {
-  //     return Promise.all(
-  //       params.ids.map((id: any) =>
-  //         httpClient(`${apiUrl}/${resource}/${id}`, {
-  //           method: 'PUT',
-  //           body: JSON.stringify(params.data),
-  //         }),
-  //       ),
-  //     ).then((responses) => ({
-  //       data: responses.map((response) => response.json),
-  //     }));
-  //   }
-  //   // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
-  //   if (type === 'deleteMany') {
-  //     return Promise.all(
-  //       params.ids.map((id: any) =>
-  //         httpClient(`${apiUrl}/${resource}/${id}`, {
-  //           method: 'DELETE',
-  //         }),
-  //       ),
-  //     ).then((responses) => ({
-  //       data: responses.map((response) => response.json),
-  //     }));
-  //   }
-
-  // const {url, options} = convertDataRequestToHTTP(type, resource, params);
-  // return httpClient(url, options).then((response) =>
-  //   convertHTTPResponse(response, type, resource, params),
-  // );
   const handle = (type: any, resource: any, params: any): Promise<any> => {
     let response;
     try {

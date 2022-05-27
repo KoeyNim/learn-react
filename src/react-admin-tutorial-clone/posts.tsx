@@ -81,7 +81,12 @@ export const PostEdit = (props: unknown) => (
       </ReferenceInput> */}
       <TextInput disabled source="userId" />
       <TextInput source="title" />
-      <TextInput multiline source="content" />
+      <RichTextInput
+        toolbar={<RichTextInputToolbar size="large" />}
+        // imageUploadUrl={process.env.FILE_UPLOAD_URL}
+        // baseUrl={process.env.FILE_DOWNLOAD_URL}
+        source="content"
+      />
     </SimpleForm>
   </Edit>
 );
