@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Admin, Resource, ListGuesser, EditGuesser} from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
-import UserList from './react-admin-tutorial-clone/users';
+import {UsersList} from './react-admin-tutorial-clone/users';
 import {
   PostList,
   PostEdit,
@@ -40,7 +40,7 @@ function App() {
             icon={PostIcon}
           />
           {/*  Users의 list, icon 추가  */}
-          <Resource name="users" list={UserList} icon={UserIcon} />
+          <Resource name="users" list={UsersList} icon={UserIcon} />
         </Admin>
       </React.StrictMode>
     </div>

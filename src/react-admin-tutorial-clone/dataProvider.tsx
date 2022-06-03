@@ -26,8 +26,8 @@ const dataProviders: Array<any> = [
     resources: ['posts'],
   },
   {
-    dataProvider: memberProvider,
-    resources: ['user'],
+    dataProvider: memberProvider(true),
+    resources: ['users'],
   },
 ];
 
