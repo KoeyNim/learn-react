@@ -55,6 +55,7 @@ export const UsersList = () => {
           <TextField label="나이" source="age" />
           <TextField label="성별" source="gender" />
           <TextField label="이메일" source="email" />
+          <TextField label="권한" source="role.roleName" />
           {/* </ReferenceField> */}
           {/* <TextField label="제목" source="title" />
           <DateField label="작성일" source="registDate" /> */}
