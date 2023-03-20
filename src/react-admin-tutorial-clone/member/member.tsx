@@ -29,7 +29,7 @@ const userFilters = [
 ];
 
 // 게시글 리스트 양식
-export const UsersList = () => {
+export const MemberList = () => {
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm'),
   );
@@ -55,7 +55,8 @@ export const UsersList = () => {
           <TextField label="나이" source="age" />
           <TextField label="성별" source="gender" />
           <TextField label="이메일" source="email" />
-          <TextField label="권한" source="role.roleName" />
+          <TextField label="연락처" source="phone" />
+          <TextField label="권한" source="role.roleKey" />
           {/* </ReferenceField> */}
           {/* <TextField label="제목" source="title" />
           <DateField label="작성일" source="registDate" /> */}

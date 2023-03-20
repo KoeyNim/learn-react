@@ -43,9 +43,8 @@ export default (loggingEnabled = false): DataProvider => {
         url =
           `${apiUrl}/${resource}` +
           `?pageIndex=${page - 1}` +
-          `&pageSize=${perPage}` +
-          `&sortKey=${field}` +
-          `&order=${order}` +
+          `&size=${perPage}` +
+          `&sort=${field}%2C${order}` +
           `&srchKey=${srchKey === undefined ? '' : srchKey}` +
           `&srchVal=${srchVal === undefined ? '' : srchVal}`;
         options.method = 'GET';
@@ -79,11 +78,11 @@ export default (loggingEnabled = false): DataProvider => {
         options.method = 'PUT';
         options.body = JSON.stringify(params.data);
         break;
-      case 'create':
-        url = `${apiUrl}/${resource}/create`;
-        options.method = 'POST';
-        options.body = JSON.stringify(params.data);
-        break;
+      // case 'create':
+      //   url = `${apiUrl}/${resource}/create`;
+      //   options.method = 'POST';
+      //   options.body = JSON.stringify(params.data);
+      //   break;
       case 'delete':
         url = `${apiUrl}/${resource}/delete/${params.id}`;
         options.method = 'DELETE';
@@ -148,6 +147,7 @@ export default (loggingEnabled = false): DataProvider => {
       response = httpClient(url, options).then((response) =>
         convertHTTPResponse(response, type, resource, params),
       );
+      console.log('test', response);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -170,5 +170,4 @@ export default (loggingEnabled = false): DataProvider => {
     delete: (resource, params) => handle('delete', resource, params),
     deleteMany: (resource, params) => handle('deleteMany', resource, params),
   };
-  // };
 };

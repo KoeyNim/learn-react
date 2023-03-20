@@ -1,5 +1,5 @@
-import boardProvider from './api/boardProvider';
-import memberProvider from './api/memberProvider';
+import boardProvider from './board/boardProvider';
+import memberProvider from './member/memberProvider';
 
 // https://stackoverflow.com/a/66347998
 import {
@@ -23,11 +23,11 @@ interface MappingType {
 const dataProviders: Array<any> = [
   {
     dataProvider: boardProvider(true),
-    resources: ['posts'],
+    resources: ['board'],
   },
   {
     dataProvider: memberProvider(true),
-    resources: ['users'],
+    resources: ['member'],
   },
 ];
 

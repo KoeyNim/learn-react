@@ -18,7 +18,7 @@ import {
 } from 'react-admin';
 
 // 게시글 검색 기능
-const postFilters = [
+const boardFilters = [
   <TextInput source="srchVal" label="검색" alwaysOn />,
   <SelectInput
     source="srchKey"
@@ -33,13 +33,13 @@ const postFilters = [
 ];
 
 // 게시글 리스트 양식
-export const PostList = () => {
+export const BoardList = () => {
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm'),
   );
   return (
     // 해당 리스트 검색 필터 추가
-    <List filters={postFilters} sort={{field: 'registDate', order: 'DESC'}}>
+    <List filters={boardFilters} sort={{field: 'registDate', order: 'DESC'}}>
       {/* // 모바일 화면 */}
       {isMobile ? (
         <SimpleList
@@ -66,14 +66,14 @@ export const PostList = () => {
 };
 
 // 페이지 제목 지정 useRecordContext Hook 사용
-const PostTitle = () => {
+const BoardTitle = () => {
   const record = useRecordContext();
   return <span>Post {record ? `"${record.title}"` : ''}</span>;
 };
 
 // 게시글 수정 양식
-export const PostEdit = (props: unknown) => (
-  <Edit title={<PostTitle />}>
+export const BoardEdit = (props: unknown) => (
+  <Edit title={<BoardTitle />}>
     <SimpleForm>
       <TextInput disabled source="id" />
       {/* <ReferenceInput source="userId" reference="users">
@@ -92,7 +92,7 @@ export const PostEdit = (props: unknown) => (
 );
 
 // 게시글 등록 양식
-export const PostCreate = (props: unknown) => (
+export const BoardCreate = (props: unknown) => (
   <Create {...props}>
     <SimpleForm>
       {/* <ReferenceInput source="userId" reference="users">

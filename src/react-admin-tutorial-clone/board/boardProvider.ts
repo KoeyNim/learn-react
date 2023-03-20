@@ -42,10 +42,9 @@ export default (loggingEnabled = false): DataProvider => {
         const {field, order} = params.sort;
         url =
           `${apiUrl}/${resource}` +
-          `?pageIndex=${page - 1}` +
-          `&pageSize=${perPage}` +
-          `&sortKey=${field}` +
-          `&order=${order}` +
+          `?page=${page - 1}` +
+          `&size=${perPage}` +
+          `&sort=${field}%2C${order}` +
           `&srchKey=${srchKey === undefined ? '' : srchKey}` +
           `&srchVal=${srchVal === undefined ? '' : srchVal}`;
         options.method = 'GET';
@@ -79,11 +78,11 @@ export default (loggingEnabled = false): DataProvider => {
         options.method = 'PUT';
         options.body = JSON.stringify(params.data);
         break;
-      // case 'create':
-      //   url = `${apiUrl}/${resource}/create`;
-      //   options.method = 'POST';
-      //   options.body = JSON.stringify(params.data);
-      //   break;
+      case 'create':
+        url = `${apiUrl}/${resource}/create`;
+        options.method = 'POST';
+        options.body = JSON.stringify(params.data);
+        break;
       case 'delete':
         url = `${apiUrl}/${resource}/delete/${params.id}`;
         options.method = 'DELETE';
@@ -170,4 +169,5 @@ export default (loggingEnabled = false): DataProvider => {
     delete: (resource, params) => handle('delete', resource, params),
     deleteMany: (resource, params) => handle('deleteMany', resource, params),
   };
+  // };
 };
