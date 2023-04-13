@@ -51,7 +51,7 @@ export default (loggingEnabled = false): DataProvider => {
         break;
       }
       case 'getOne':
-        url = `${apiUrl}/${resource}/${params.id}`;
+        url = `${apiUrl}/${resource}/detail?boardSeqno=${params.id}`;
         options.method = 'GET';
         break;
       case 'getMany': {
