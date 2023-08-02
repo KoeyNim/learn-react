@@ -48,7 +48,7 @@ export const MemberList = () => {
       ) : (
         // PC 화면
         <Datagrid>
-          <TextField label="번호" source="id" sortable={false} />
+          {/* <TextField label="번호" source="id" sortable={false} /> */}
           {/* <ReferenceField source="userId" reference="userId"> */}
           <TextField label="아이디" source="userId" />
           <TextField label="이름" source="userName" />
